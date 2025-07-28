@@ -33,7 +33,10 @@ function PdfsPage() {
   useEffect(() => {
     if (user) {
       const getPdfs = async () => {
-        const { data, error } = await supabase.storage.from("pdfs").list();
+        const { data, error } = await supabase
+          .from("pdfs")
+          .select("*")
+          .eq("user_id", user.id);
         if (error) {
           console.error(error);
         } else {
@@ -45,21 +48,10 @@ function PdfsPage() {
   }, [user]);
 
   const handleSummarize = async (pdfName: string) => {
-    const { data, error } = await supabase.storage
-      .from("pdfs")
-      .download(pdfName);
-
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", data);
-
     const res = await fetch("/api/summarize", {
       method: "POST",
-      body: formData,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pdfName }),
     });
 
     const { summary } = await res.json();

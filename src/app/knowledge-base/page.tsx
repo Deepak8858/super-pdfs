@@ -43,28 +43,21 @@ function KnowledgeBasePage() {
   }, [user]);
 
   const handleBuildKnowledgeBase = async () => {
-    const { data: pdfs, error } = await supabase.storage.from("pdfs").list();
+    const { data: pdfs, error } = await supabase
+      .from("pdfs")
+      .select("name")
+      .eq("user_id", user?.id);
+
     if (error) {
       console.error(error);
       return;
     }
 
     for (const pdf of pdfs) {
-      const { data: file, error: downloadError } = await supabase.storage
-        .from("pdfs")
-        .download(pdf.name);
-
-      if (downloadError) {
-        console.error(downloadError);
-        continue;
-      }
-
-      const formData = new FormData();
-      formData.append("file", file);
-
       const res = await fetch("/api/knowledge-base", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pdfName: pdf.name }),
       });
 
       const { knowledge } = await res.json();

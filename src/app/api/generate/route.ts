@@ -16,9 +16,10 @@ export async function POST(req: NextRequest) {
 
   const user = sessionData.session.user;
 
-  const { data: pdfs, error: pdfsError } = await supabase.storage
+  const { data: pdfs, error: pdfsError } = await supabase
     .from("pdfs")
-    .list();
+    .select("name")
+    .eq("user_id", user.id);
 
   if (pdfsError) {
     return NextResponse.json({ error: "Could not list PDFs" }, { status: 500 });

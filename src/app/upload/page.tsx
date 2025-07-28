@@ -26,19 +26,38 @@ function UploadPage() {
     setUploading(true);
     const { data, error } = await supabase.storage
       .from("pdfs")
-      .upload(`public/${file.name}`, file, {
+      .upload(file.name, file, {
         cacheControl: "3600",
         upsert: false,
-        onUploadProgress: (event) => {
-          setProgress((event.loaded / event.total) * 100);
-        },
       });
 
-    setUploading(false);
     if (error) {
+      setUploading(false);
       alert(error.message);
+      return;
+    }
+
+    const { data: sessionData, error: sessionError } =
+      await supabase.auth.getSession();
+    if (sessionError || !sessionData.session) {
+      setUploading(false);
+      alert("You must be logged in to upload a PDF.");
+      return;
+    }
+
+    const user = sessionData.session.user;
+    const { error: insertError } = await supabase.from("pdfs").insert({
+      user_id: user.id,
+      name: file.name,
+      url: `https://ozcgtjtxijrxahohnzrp.supabase.co/storage/v1/object/public/pdfs/${file.name}`,
+    });
+
+    setUploading(false);
+
+    if (insertError) {
+      alert(insertError.message);
     } else {
-      router.push("/");
+      router.push("/pdfs");
     }
   };
 

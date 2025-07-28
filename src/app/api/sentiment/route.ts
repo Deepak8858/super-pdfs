@@ -8,12 +8,34 @@ const genAI = new GoogleGenerativeAI("AIzaSyBiatJyRD309R4WiD1DmbQW59o8oti7FU8");
 export async function POST(req: NextRequest) {
   const { pdfName } = await req.json();
 
-  const { data: file, error } = await supabase.storage
+  const { data: sessionData, error: sessionError } =
+    await supabase.auth.getSession();
+  if (sessionError || !sessionData.session) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  const user = sessionData.session.user;
+
+  const { data: pdfData, error: pdfError } = await supabase
+    .from("pdfs")
+    .select("id")
+    .eq("name", pdfName)
+    .eq("user_id", user.id)
+    .single();
+
+  if (pdfError || !pdfData) {
+    return NextResponse.json({ error: "PDF not found" }, { status: 404 });
+  }
+
+  const { data: file, error: downloadError } = await supabase.storage
     .from("pdfs")
     .download(pdfName);
 
-  if (error) {
-    return NextResponse.json({ error: "PDF not found" }, { status: 404 });
+  if (downloadError) {
+    return NextResponse.json(
+      { error: "Could not download PDF" },
+      { status: 500 }
+    );
   }
 
   const arrayBuffer = await file.arrayBuffer();
