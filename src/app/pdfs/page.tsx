@@ -81,75 +81,85 @@ function PdfsPage() {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="min-h-screen bg-primary text-light-blue">
       <ParticleBackground />
-      <h1 className="text-2xl font-bold mb-4 z-10">Your PDFs</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {pdfs.map((pdf) => (
-          <div key={pdf.id} className="p-4 border rounded-lg">
-            <p className="font-bold">{pdf.name}</p>
-            <div className="flex gap-2 mt-2">
-              <button
-                onClick={() => handleSummarize(pdf.name)}
-                className="px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                Summarize
-              </button>
-              <Link
-                href={`/chat/${pdf.name}`}
-                className="px-4 py-2 font-bold text-white bg-green-500 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
-              >
-                Chat
-              </Link>
-              <button
-                onClick={() => handleHighlight(pdf.name)}
-                className="px-4 py-2 font-bold text-white bg-purple-500 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              >
-                Highlight Topics
-              </button>
-              <button
-                onClick={() => handleSentiment(pdf.name)}
-                className="px-4 py-2 font-bold text-white bg-yellow-500 rounded-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-              >
-                Analyze Sentiment
-              </button>
-              <Link
-                href={`/interactive/${pdf.name}`}
-                className="px-4 py-2 font-bold text-white bg-indigo-500 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                Interactive View
-              </Link>
-            </div>
+      <div className="container mx-auto p-4 z-10">
+        <h1 className="text-4xl font-bold mb-8 text-accent">Your PDFs</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {pdfs.map((pdf) => (
+            <motion.div
+              key={pdf.id}
+              className="bg-secondary p-6 rounded-lg shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="text-2xl font-bold mb-4">{pdf.name}</h2>
+              <div className="flex flex-col gap-4">
+                <button
+                  onClick={() => handleSummarize(pdf.name)}
+                  className="w-full px-4 py-2 font-bold text-primary bg-accent rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent"
+                >
+                  Summarize
+                </button>
+                <Link
+                  href={`/chat/${pdf.name}`}
+                  className="w-full text-center px-4 py-2 font-bold text-primary bg-accent rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent"
+                >
+                  Chat
+                </Link>
+                <button
+                  onClick={() => handleHighlight(pdf.name)}
+                  className="w-full px-4 py-2 font-bold text-primary bg-accent rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent"
+                >
+                  Highlight Topics
+                </button>
+                <button
+                  onClick={() => handleSentiment(pdf.name)}
+                  className="w-full px-4 py-2 font-bold text-primary bg-accent rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent"
+                >
+                  Analyze Sentiment
+                </button>
+                <Link
+                  href={`/interactive/${pdf.name}`}
+                  className="w-full text-center px-4 py-2 font-bold text-primary bg-accent rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent"
+                >
+                  Interactive View
+                </Link>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        {summary && (
+          <motion.div
+            className="mt-8 p-6 bg-secondary rounded-lg shadow-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-2xl font-bold mb-4 text-accent">Summary</h2>
+            <p>{summary}</p>
+          </motion.div>
+        )}
+        {topics && (
+          <div className="mt-8 p-6 bg-secondary rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-4 text-accent">
+              Important Topics
+            </h2>
+            <ul className="list-disc list-inside">
+              {topics.map((topic, index) => (
+                <li key={index}>{topic}</li>
+              ))}
+            </ul>
           </div>
-        ))}
+        )}
+        {sentiment && (
+          <div className="mt-8 p-6 bg-secondary rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-4 text-accent">Sentiment</h2>
+            <p>{sentiment}</p>
+          </div>
+        )}
       </div>
-      {summary && (
-        <motion.div
-          className="mt-8 p-4 border rounded-lg"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-xl font-bold mb-2">Summary</h2>
-          <p>{summary}</p>
-        </motion.div>
-      )}
-      {topics && (
-        <div className="mt-8 p-4 border rounded-lg">
-          <h2 className="text-xl font-bold mb-2">Important Topics</h2>
-          <ul className="list-disc list-inside">
-            {topics.map((topic, index) => (
-              <li key={index}>{topic}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-      {sentiment && (
-        <div className="mt-8 p-4 border rounded-lg">
-          <h2 className="text-xl font-bold mb-2">Sentiment</h2>
-          <p>{sentiment}</p>
-        </div>
-      )}
     </div>
   );
 }

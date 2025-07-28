@@ -29,7 +29,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-primary">
+    <div className="flex flex-col min-h-screen bg-primary text-light-blue">
       <ParticleBackground />
       <header className="px-4 lg:px-6 h-14 flex items-center bg-secondary z-10">
         <Link className="flex items-center justify-center" href="#">
@@ -39,38 +39,38 @@ export default function Home() {
           {user ? (
             <>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
+                className="text-sm font-medium hover:underline underline-offset-4"
                 href="/pdfs"
               >
                 Your PDFs
               </Link>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
+                className="text-sm font-medium hover:underline underline-offset-4"
                 href="/upload"
               >
                 Upload PDF
               </Link>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
+                className="text-sm font-medium hover:underline underline-offset-4"
                 href="/compare"
               >
                 Compare PDFs
               </Link>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
+                className="text-sm font-medium hover:underline underline-offset-4"
                 href="/knowledge-base"
               >
                 Knowledge Base
               </Link>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
+                className="text-sm font-medium hover:underline underline-offset-4"
                 href="/generate"
               >
                 Generate PDF
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
+                className="text-sm font-medium hover:underline underline-offset-4"
               >
                 Logout
               </button>
@@ -78,13 +78,13 @@ export default function Home() {
           ) : (
             <>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
+                className="text-sm font-medium hover:underline underline-offset-4"
                 href="/login"
               >
                 Login
               </Link>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
+                className="text-sm font-medium hover:underline underline-offset-4"
                 href="/signup"
               >
                 Sign Up
@@ -103,23 +103,47 @@ export default function Home() {
               className="flex flex-col items-center space-y-4 text-center"
             >
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-accent">
-                  Unlock the Power of Your PDFs
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none text-accent">
+                  AI-Powered PDF Analysis
                 </h1>
-                <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl">
-                  Our AI-powered platform allows you to chat with your
-                  documents, summarize key information, and much more.
+                <p className="mx-auto max-w-[700px] text-lg md:text-xl">
+                  Unlock insights from your documents with the power of AI.
+                  Summarize, chat, and analyze your PDFs like never before.
                 </p>
               </div>
               <div className="space-x-4">
                 <Link
-                  className="inline-flex h-9 items-center justify-center rounded-md bg-accent px-4 py-2 text-sm font-medium text-primary shadow transition-colors hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                  className="inline-flex h-12 items-center justify-center rounded-md bg-accent px-8 text-lg font-medium text-primary shadow transition-colors hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                   href={user ? "/upload" : "/signup"}
                 >
                   Get Started
                 </Link>
               </div>
             </motion.div>
+          </div>
+        </section>
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-secondary">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-6 lg:grid-cols-3">
+              <div className="flex flex-col items-center space-y-4 text-center">
+                <h3 className="text-2xl font-bold text-accent">Summarize</h3>
+                <p className="text-lg">
+                  Get concise summaries of your PDFs in seconds.
+                </p>
+              </div>
+              <div className="flex flex-col items-center space-y-4 text-center">
+                <h3 className="text-2xl font-bold text-accent">Chat</h3>
+                <p className="text-lg">
+                  Chat with your PDFs to get instant answers to your questions.
+                </p>
+              </div>
+              <div className="flex flex-col items-center space-y-4 text-center">
+                <h3 className="text-2xl font-bold text-accent">Analyze</h3>
+                <p className="text-lg">
+                  Analyze your PDFs for sentiment, topics, and more.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
       </main>

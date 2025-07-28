@@ -31,7 +31,8 @@ function KnowledgeBasePage() {
       const getKnowledge = async () => {
         const { data, error } = await supabase
           .from("knowledge_base")
-          .select("*");
+          .select("*")
+          .eq("user_id", user.id);
         if (error) {
           console.error(error);
         } else {
@@ -66,22 +67,24 @@ function KnowledgeBasePage() {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="min-h-screen bg-primary text-light-blue">
       <ParticleBackground />
-      <h1 className="text-2xl font-bold mb-4 z-10">Knowledge Base</h1>
-      <button
-        onClick={handleBuildKnowledgeBase}
-        className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        Build Knowledge Base
-      </button>
-      <div className="mt-8">
-        {knowledge.map((item) => (
-          <div key={item.id} className="p-4 border rounded-lg mb-4">
-            <p className="font-bold">{item.key}</p>
-            <p>{item.value}</p>
-          </div>
-        ))}
+      <div className="container mx-auto p-4 z-10">
+        <h1 className="text-4xl font-bold mb-8 text-accent">Knowledge Base</h1>
+        <button
+          onClick={handleBuildKnowledgeBase}
+          className="w-full px-4 py-2 font-bold text-primary bg-accent rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent"
+        >
+          Build Knowledge Base
+        </button>
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {knowledge.map((item) => (
+            <div key={item.id} className="bg-secondary p-6 rounded-lg shadow-lg">
+              <p className="font-bold text-accent">{item.key}</p>
+              <p>{item.value}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
