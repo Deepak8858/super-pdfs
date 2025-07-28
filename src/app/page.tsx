@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { User } from "@supabase/supabase-js";
 import { motion } from "framer-motion";
-import ParticleBackground from "@/components/ParticleBackground/ParticleBackground";
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -29,11 +28,10 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-primary text-light-blue">
-      <ParticleBackground />
+    <div className="flex flex-col min-h-screen bg-primary text-gray-800">
       <header className="px-4 lg:px-6 h-14 flex items-center bg-secondary z-10">
         <Link className="flex items-center justify-center" href="#">
-          <span className="text-2xl font-bold text-accent">AI PDF</span>
+          <span className="text-2xl font-bold text-accent">DocuMind</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
           {user ? (
@@ -42,31 +40,7 @@ export default function Home() {
                 className="text-sm font-medium hover:underline underline-offset-4"
                 href="/pdfs"
               >
-                Your PDFs
-              </Link>
-              <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
-                href="/upload"
-              >
-                Upload PDF
-              </Link>
-              <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
-                href="/compare"
-              >
-                Compare PDFs
-              </Link>
-              <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
-                href="/knowledge-base"
-              >
-                Knowledge Base
-              </Link>
-              <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
-                href="/generate"
-              >
-                Generate PDF
+                Dashboard
               </Link>
               <button
                 onClick={handleLogout}
@@ -103,20 +77,20 @@ export default function Home() {
               className="flex flex-col items-center space-y-4 text-center"
             >
               <div className="space-y-2">
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none text-accent">
-                  AI-Powered PDF Analysis
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none text-dark-purple">
+                  Your Personal Document Assistant
                 </h1>
-                <p className="mx-auto max-w-[700px] text-lg md:text-xl">
-                  Unlock insights from your documents with the power of AI.
-                  Summarize, chat, and analyze your PDFs like never before.
+                <p className="mx-auto max-w-[700px] text-lg md:text-xl text-gray-600">
+                  Upload your documents and let our AI do the hard work.
+                  Summarize, chat, and get insights in seconds.
                 </p>
               </div>
               <div className="space-x-4">
                 <Link
-                  className="inline-flex h-12 items-center justify-center rounded-md bg-accent px-8 text-lg font-medium text-primary shadow transition-colors hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                  className="inline-flex h-12 items-center justify-center rounded-md bg-accent px-8 text-lg font-medium text-white shadow transition-colors hover:bg-dark-purple focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                   href={user ? "/upload" : "/signup"}
                 >
-                  Get Started
+                  Get Started for Free
                 </Link>
               </div>
             </motion.div>
@@ -126,20 +100,24 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-3">
               <div className="flex flex-col items-center space-y-4 text-center">
-                <h3 className="text-2xl font-bold text-accent">Summarize</h3>
-                <p className="text-lg">
+                <h3 className="text-2xl font-bold text-dark-purple">
+                  Summarize
+                </h3>
+                <p className="text-lg text-gray-600">
                   Get concise summaries of your PDFs in seconds.
                 </p>
               </div>
               <div className="flex flex-col items-center space-y-4 text-center">
-                <h3 className="text-2xl font-bold text-accent">Chat</h3>
-                <p className="text-lg">
+                <h3 className="text-2xl font-bold text-dark-purple">Chat</h3>
+                <p className="text-lg text-gray-600">
                   Chat with your PDFs to get instant answers to your questions.
                 </p>
               </div>
               <div className="flex flex-col items-center space-y-4 text-center">
-                <h3 className="text-2xl font-bold text-accent">Analyze</h3>
-                <p className="text-lg">
+                <h3 className="text-2xl font-bold text-dark-purple">
+                  Analyze
+                </h3>
+                <p className="text-lg text-gray-600">
                   Analyze your PDFs for sentiment, topics, and more.
                 </p>
               </div>

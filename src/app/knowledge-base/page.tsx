@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
 import withAuth from "@/components/withAuth/withAuth";
-import ParticleBackground from "@/components/ParticleBackground/ParticleBackground";
 
 interface Knowledge {
   id: string;
@@ -67,20 +66,21 @@ function KnowledgeBasePage() {
   };
 
   return (
-    <div className="min-h-screen bg-primary text-light-blue">
-      <ParticleBackground />
-      <div className="container mx-auto p-4 z-10">
-        <h1 className="text-4xl font-bold mb-8 text-accent">Knowledge Base</h1>
+    <div className="min-h-screen bg-primary text-gray-800">
+      <div className="container mx-auto p-4">
+        <h1 className="text-4xl font-bold mb-8 text-dark-purple">
+          Knowledge Base
+        </h1>
         <button
           onClick={handleBuildKnowledgeBase}
-          className="w-full px-4 py-2 font-bold text-primary bg-accent rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent"
+          className="w-full px-4 py-2 font-bold text-white bg-accent rounded-md hover:bg-dark-purple focus:outline-none focus:ring-2 focus:ring-accent"
         >
           Build Knowledge Base
         </button>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {knowledge.map((item) => (
             <div key={item.id} className="bg-secondary p-6 rounded-lg shadow-lg">
-              <p className="font-bold text-accent">{item.key}</p>
+              <p className="font-bold text-dark-purple">{item.key}</p>
               <p>{item.value}</p>
             </div>
           ))}
