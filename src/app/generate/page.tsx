@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import jsPDF from "jspdf";
+import withAuth from "@/components/withAuth/withAuth";
 
-export default function GeneratePage() {
+function GeneratePage() {
   const [prompt, setPrompt] = useState("");
   const [generatedText, setGeneratedText] = useState<string | null>(null);
 
@@ -60,3 +61,5 @@ export default function GeneratePage() {
     </div>
   );
 }
+
+export default withAuth(GeneratePage);

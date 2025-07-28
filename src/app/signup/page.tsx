@@ -4,20 +4,35 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import zxcvbn from "zxcvbn";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordStrength, setPasswordStrength] = useState(0);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    const strength = zxcvbn(newPassword).score;
+    setPasswordStrength(strength);
+  };
+
   const handleSignup = async () => {
+    if (passwordStrength < 3) {
+      setError("Password is too weak.");
+      return;
+    }
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
     });
 
     if (error) {
-      alert(error.message);
+      setError(error.message);
     } else {
       router.push("/");
     }
@@ -36,6 +51,7 @@ export default function SignupPage() {
                 Create Account
               </h2>
               <div className="border-2 w-10 border-gray-900 inline-block mb-2"></div>
+              {error && <p className="text-red-500">{error}</p>}
               <div className="flex flex-col items-center">
                 <div className="bg-gray-100 w-64 p-2 flex items-center mb-4">
                   <input
@@ -53,9 +69,25 @@ export default function SignupPage() {
                     name="password"
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={handlePasswordChange}
                     className="bg-gray-100 outline-none text-sm flex-1"
                   />
+                </div>
+                <div className="w-64 mt-2">
+                  <div className="h-2 bg-gray-200 rounded-full">
+                    <div
+                      className={`h-full rounded-full ${
+                        passwordStrength === 0
+                          ? "bg-red-500"
+                          : passwordStrength === 1
+                          ? "bg-orange-500"
+                          : passwordStrength === 2
+                          ? "bg-yellow-500"
+                          : "bg-green-500"
+                      }`}
+                      style={{ width: `${(passwordStrength / 4) * 100}%` }}
+                    ></div>
+                  </div>
                 </div>
                 <button
                   onClick={handleSignup}

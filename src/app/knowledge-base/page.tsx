@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
+import withAuth from "@/components/withAuth/withAuth";
 
 interface Knowledge {
   id: string;
@@ -10,7 +11,7 @@ interface Knowledge {
   value: string;
 }
 
-export default function KnowledgeBasePage() {
+function KnowledgeBasePage() {
   const [user, setUser] = useState<User | null>(null);
   const [knowledge, setKnowledge] = useState<Knowledge[]>([]);
 
@@ -90,3 +91,5 @@ export default function KnowledgeBasePage() {
     </div>
   );
 }
+
+export default withAuth(KnowledgeBasePage);

@@ -8,16 +8,18 @@ import Link from "next/link";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleLogin = async () => {
+    setError(null);
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
-      alert(error.message);
+      setError(error.message);
     } else {
       router.push("/");
     }
@@ -49,6 +51,7 @@ export default function LoginPage() {
                 Sign in to Account
               </h2>
               <div className="border-2 w-10 border-gray-900 inline-block mb-2"></div>
+              {error && <p className="text-red-500">{error}</p>}
               <div className="flex flex-col items-center">
                 <div className="bg-gray-100 w-64 p-2 flex items-center mb-4">
                   <input

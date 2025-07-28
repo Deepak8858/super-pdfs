@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import withAuth from "@/components/withAuth/withAuth";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-export default function InteractivePdfPage({
+function InteractivePdfPage({
   params,
 }: {
   params: { pdfName: string };
@@ -58,3 +59,5 @@ export default function InteractivePdfPage({
     </div>
   );
 }
+
+export default withAuth(InteractivePdfPage);

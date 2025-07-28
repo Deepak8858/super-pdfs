@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
+import withAuth from "@/components/withAuth/withAuth";
 
 interface Pdf {
   name: string;
   id: string;
 }
 
-export default function ComparePage() {
+function ComparePage() {
   const [user, setUser] = useState<User | null>(null);
   const [pdfs, setPdfs] = useState<Pdf[]>([]);
   const [selectedPdfs, setSelectedPdfs] = useState<string[]>([]);
@@ -101,3 +102,5 @@ export default function ComparePage() {
     </div>
   );
 }
+
+export default withAuth(ComparePage);

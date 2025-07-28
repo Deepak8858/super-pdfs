@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
+import withAuth from "@/components/withAuth/withAuth";
 
-export default function UploadPage() {
+function UploadPage() {
   const [file, setFile] = useState<File | null>(null);
   const router = useRouter();
 
@@ -50,3 +51,5 @@ export default function UploadPage() {
     </div>
   );
 }
+
+export default withAuth(UploadPage);

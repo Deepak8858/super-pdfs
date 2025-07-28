@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
 import Link from "next/link";
+import withAuth from "@/components/withAuth/withAuth";
 
 interface Pdf {
   name: string;
   id: string;
 }
 
-export default function PdfsPage() {
+function PdfsPage() {
   const [user, setUser] = useState<User | null>(null);
   const [pdfs, setPdfs] = useState<Pdf[]>([]);
   const [summary, setSummary] = useState<string | null>(null);
@@ -152,3 +153,5 @@ export default function PdfsPage() {
     </div>
   );
 }
+
+export default withAuth(PdfsPage);
