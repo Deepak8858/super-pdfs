@@ -3,6 +3,7 @@
 import { useState } from "react";
 import jsPDF from "jspdf";
 import withAuth from "@/components/withAuth/withAuth";
+import ParticleBackground from "@/components/ParticleBackground/ParticleBackground";
 
 function GeneratePage() {
   const [prompt, setPrompt] = useState("");
@@ -29,7 +30,8 @@ function GeneratePage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Generate PDF</h1>
+      <ParticleBackground />
+      <h1 className="text-2xl font-bold mb-4 z-10">Generate PDF</h1>
       <div className="mt-4">
         <textarea
           placeholder="Enter your prompt"

@@ -47,9 +47,25 @@ function InteractivePdfPage({
           <Page pageNumber={pageNumber} />
         </Document>
       </div>
-      <p>
-        Page {pageNumber} of {numPages}
-      </p>
+      <div className="flex justify-between items-center mt-4">
+        <button
+          disabled={pageNumber <= 1}
+          onClick={() => setPageNumber(pageNumber - 1)}
+          className="px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400"
+        >
+          Previous
+        </button>
+        <p>
+          Page {pageNumber} of {numPages}
+        </p>
+        <button
+          disabled={pageNumber >= (numPages || 0)}
+          onClick={() => setPageNumber(pageNumber + 1)}
+          className="px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400"
+        >
+          Next
+        </button>
+      </div>
       {definition && (
         <div className="mt-8 p-4 border rounded-lg">
           <h2 className="text-xl font-bold mb-2">Definition</h2>

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { User } from "@supabase/supabase-js";
 import { motion } from "framer-motion";
+import ParticleBackground from "@/components/ParticleBackground/ParticleBackground";
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -28,47 +29,48 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
+    <div className="flex flex-col min-h-screen bg-primary">
+      <ParticleBackground />
+      <header className="px-4 lg:px-6 h-14 flex items-center bg-secondary z-10">
         <Link className="flex items-center justify-center" href="#">
-          <span className="sr-only">AI PDF</span>
+          <span className="text-2xl font-bold text-accent">AI PDF</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
           {user ? (
             <>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
+                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
                 href="/pdfs"
               >
                 Your PDFs
               </Link>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
+                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
                 href="/upload"
               >
                 Upload PDF
               </Link>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
+                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
                 href="/compare"
               >
                 Compare PDFs
               </Link>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
+                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
                 href="/knowledge-base"
               >
                 Knowledge Base
               </Link>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
+                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
                 href="/generate"
               >
                 Generate PDF
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-sm font-medium hover:underline underline-offset-4"
+                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
               >
                 Logout
               </button>
@@ -76,13 +78,13 @@ export default function Home() {
           ) : (
             <>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
+                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
                 href="/login"
               >
                 Login
               </Link>
               <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
+                className="text-sm font-medium hover:underline underline-offset-4 text-gray-300"
                 href="/signup"
               >
                 Sign Up
@@ -91,7 +93,7 @@ export default function Home() {
           )}
         </nav>
       </header>
-      <main className="flex-1">
+      <main className="flex-1 z-10">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">
             <motion.div
@@ -101,17 +103,17 @@ export default function Home() {
               className="flex flex-col items-center space-y-4 text-center"
             >
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-accent">
                   Unlock the Power of Your PDFs
                 </h1>
-                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+                <p className="mx-auto max-w-[700px] text-gray-300 md:text-xl">
                   Our AI-powered platform allows you to chat with your
                   documents, summarize key information, and much more.
                 </p>
               </div>
               <div className="space-x-4">
                 <Link
-                  className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                  className="inline-flex h-9 items-center justify-center rounded-md bg-accent px-4 py-2 text-sm font-medium text-primary shadow transition-colors hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                   href={user ? "/upload" : "/signup"}
                 >
                   Get Started

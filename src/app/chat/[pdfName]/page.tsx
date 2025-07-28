@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 interface ChatMessage {
   sender: "user" | "ai";
@@ -37,11 +38,17 @@ export default function ChatPage({
       <h1 className="text-2xl font-bold mb-4">Chat with {params.pdfName}</h1>
       <div className="flex-grow border rounded-lg p-4 overflow-y-auto">
         {messages.map((msg, index) => (
-          <div key={index} className={`mb-2 ${msg.sender === 'user' ? 'text-right' : ''}`}>
+          <motion.div
+            key={index}
+            className={`mb-2 ${msg.sender === 'user' ? 'text-right' : ''}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <span className={`inline-block p-2 rounded-lg ${msg.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
               {msg.text}
             </span>
-          </div>
+          </motion.div>
         ))}
       </div>
       <div className="mt-4 flex">

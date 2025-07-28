@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
 import withAuth from "@/components/withAuth/withAuth";
+import ParticleBackground from "@/components/ParticleBackground/ParticleBackground";
 
 interface Knowledge {
   id: string;
@@ -73,7 +74,8 @@ function KnowledgeBasePage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Knowledge Base</h1>
+      <ParticleBackground />
+      <h1 className="text-2xl font-bold mb-4 z-10">Knowledge Base</h1>
       <button
         onClick={handleBuildKnowledgeBase}
         className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"

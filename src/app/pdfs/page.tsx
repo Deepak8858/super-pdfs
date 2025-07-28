@@ -5,6 +5,8 @@ import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import withAuth from "@/components/withAuth/withAuth";
+import { motion } from "framer-motion";
+import ParticleBackground from "@/components/ParticleBackground/ParticleBackground";
 
 interface Pdf {
   name: string;
@@ -88,7 +90,8 @@ function PdfsPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Your PDFs</h1>
+      <ParticleBackground />
+      <h1 className="text-2xl font-bold mb-4 z-10">Your PDFs</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {pdfs.map((pdf) => (
           <div key={pdf.id} className="p-4 border rounded-lg">
@@ -129,10 +132,15 @@ function PdfsPage() {
         ))}
       </div>
       {summary && (
-        <div className="mt-8 p-4 border rounded-lg">
+        <motion.div
+          className="mt-8 p-4 border rounded-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <h2 className="text-xl font-bold mb-2">Summary</h2>
           <p>{summary}</p>
-        </div>
+        </motion.div>
       )}
       {topics && (
         <div className="mt-8 p-4 border rounded-lg">

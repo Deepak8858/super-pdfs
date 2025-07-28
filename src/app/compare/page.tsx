@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { User } from "@supabase/supabase-js";
 import withAuth from "@/components/withAuth/withAuth";
+import ParticleBackground from "@/components/ParticleBackground/ParticleBackground";
 
 interface Pdf {
   name: string;
@@ -62,7 +63,8 @@ function ComparePage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Compare PDFs</h1>
+      <ParticleBackground />
+      <h1 className="text-2xl font-bold mb-4 z-10">Compare PDFs</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {pdfs.map((pdf) => (
           <div
