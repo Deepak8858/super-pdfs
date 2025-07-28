@@ -1,0 +1,45 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { NextRequest, NextResponse } from "next/server";
+import pdf from "pdf-parse";
+import { supabase } from "@/lib/supabase";
+
+const genAI = new GoogleGenerativeAI("AIzaSyBiatJyRD309R4WiD1DmbQW59o8oti7FU8");
+
+export async function POST(req: NextRequest) {
+  const formData = await req.formData();
+  const file = formData.get("file") as File;
+
+  if (!file) {
+    return NextResponse.json({ error: "No file found" }, { status: 400 });
+  }
+
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  const data = await pdf(buffer);
+
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  const prompt = `Extract key-value pairs from the following text. Return the result as a JSON object with the keys "key" and "value".\n\n${data.text}`;
+
+  const result = await model.generateContent(prompt);
+  const response = result.response;
+  const text = response.text();
+
+  const knowledge = JSON.parse(text);
+
+  const { data: sessionData, error: sessionError } =
+    await supabase.auth.getSession();
+  if (sessionError || !sessionData.session) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  const user = sessionData.session.user;
+
+  for (const item of knowledge) {
+    await supabase
+      .from("knowledge_base")
+      .insert({ user_id: user.id, key: item.key, value: item.value });
+  }
+
+  return NextResponse.json({ success: true });
+}

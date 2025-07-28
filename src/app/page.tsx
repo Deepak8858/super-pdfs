@@ -48,6 +48,24 @@ export default function Home() {
               >
                 Upload PDF
               </Link>
+              <Link
+                className="text-sm font-medium hover:underline underline-offset-4"
+                href="/compare"
+              >
+                Compare PDFs
+              </Link>
+              <Link
+                className="text-sm font-medium hover:underline underline-offset-4"
+                href="/knowledge-base"
+              >
+                Knowledge Base
+              </Link>
+              <Link
+                className="text-sm font-medium hover:underline underline-offset-4"
+                href="/generate"
+              >
+                Generate PDF
+              </Link>
               <button
                 onClick={handleLogout}
                 className="text-sm font-medium hover:underline underline-offset-4"

@@ -117,6 +117,12 @@ export default function PdfsPage() {
               >
                 Analyze Sentiment
               </button>
+              <Link
+                href={`/interactive/${pdf.name}`}
+                className="px-4 py-2 font-bold text-white bg-indigo-500 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Interactive View
+              </Link>
             </div>
           </div>
         ))}
