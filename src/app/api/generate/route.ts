@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
   for (const pdf of pdfs) {
     const { data: file, error } = await supabase.storage
       .from("pdfs")
-      .download(`public/${pdf.name}`);
+      .download(pdf.name);
 
     if (error) {
       continue;

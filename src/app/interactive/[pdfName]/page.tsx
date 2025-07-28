@@ -41,7 +41,7 @@ function InteractivePdfPage({
       </h1>
       <div onClick={handleWordClick}>
         <Document
-          file={`/api/pdf/${params.pdfName}`}
+          file={`/api/pdf/${encodeURIComponent(params.pdfName)}`}
           onLoadSuccess={onDocumentLoadSuccess}
         >
           <Page pageNumber={pageNumber} />

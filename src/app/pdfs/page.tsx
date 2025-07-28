@@ -47,7 +47,7 @@ function PdfsPage() {
   const handleSummarize = async (pdfName: string) => {
     const { data, error } = await supabase.storage
       .from("pdfs")
-      .download(`public/${pdfName}`);
+      .download(pdfName);
 
     if (error) {
       console.error(error);

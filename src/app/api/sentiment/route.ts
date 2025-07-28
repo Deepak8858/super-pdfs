@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
   const { data: file, error } = await supabase.storage
     .from("pdfs")
-    .download(`public/${pdfName}`);
+    .download(pdfName);
 
   if (error) {
     return NextResponse.json({ error: "PDF not found" }, { status: 404 });

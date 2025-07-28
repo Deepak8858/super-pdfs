@@ -52,7 +52,7 @@ function KnowledgeBasePage() {
     for (const pdf of pdfs) {
       const { data: file, error: downloadError } = await supabase.storage
         .from("pdfs")
-        .download(`public/${pdf.name}`);
+        .download(pdf.name);
 
       if (downloadError) {
         console.error(downloadError);
